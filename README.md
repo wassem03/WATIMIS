@@ -1,46 +1,65 @@
+# WATIMIS - What Team Is?
 
-Introduction:
+Le projet que vous voyez ici est **WATIMIS (What team is?)**, une application pour PC qui permet d'identifier un club à partir d'une photo de son emblème/logo/blason. Il a pour utilité de simplifier la recherche en s'inspirant des outils de recherche à partir d'images (ex : Google Lens).
 
-Le projet que vous voyez ici est WATIMIS (What team is?), une application pour PC qui permet d'identifier un club à partir
-d'une photo de son emblème/logo/blason. Elle a pour utilité de simplifier la recherche en s'inspirant des outils de recherches
-à partir d'images (ex: Google Lens).
+---
 
-Ce projet est né d'un exercice scolaire. Plus exactement, étant en Licence d'informatique, le professeur du cours
-"Infographie et Vision Informatique" nous a demandé un projet utilisant les différentes méthodes vues en cours ainsi qu'OpenCV.
-Il fallait utiliser la reconnaissance d'un motif dans une image. C'est ainsi que l'idée de WATIMIS est née. Cependant,
-l'énoncé nous obligeait à un mode d'utilisation simple dans le terminal, or, WATIMIS avait pour vocation le grand public.
-La version développée que vous voyez aujourd'hui n'est ni plus ni moins qu'une version améliorée de ce projet scolaire,
-absolument pas obligatoire mais née de l'idée d'aller au bout des choses.
+## Introduction
 
-************************************************NOTICE D'UTILISATION****************************************************
+Ce projet est né d'un exercice scolaire. Plus exactement, étant en Licence d'informatique, le professeur du cours _"Infographie et Vision Informatique"_ nous a demandé un projet utilisant les différentes méthodes vues en cours ainsi qu'OpenCV.  
+Il fallait utiliser la reconnaissance d'un motif dans une image. C'est ainsi que l'idée de **WATIMIS** est née.  
 
-Pour utiliser WATIMIS, il suffit d'ouvrir l'application, d'appuyer sur "sélectionner une photo" et de choisir une photo 
-prise au préalable. Pour finir, appuyez sur le bouton "continuer", et c'est tout. Avec l'image donnée, le programme va alors 
-effectuer une comparaison entre votre image et toutes celles de son jeu de données, puis il vous donnera le verdict.
+Cependant, l'énoncé nous obligeait à un mode d'utilisation simple dans le terminal, alors que WATIMIS avait pour vocation le **grand public**.  
+La version développée que vous voyez aujourd'hui est une version améliorée de ce projet scolaire, absolument pas obligatoire mais née de l'idée d'aller au bout des choses.
 
-Les résultats sont simples à comprendre : en grand est affiché le club correspondant (avec les correspondances tracées), 
-avec à droite la liste des potentiels clubs identifiés. L'algorithme pouvant se tromper, il suggère donc des clubs avec une forte correspondance.
+---
 
-**************************************************************************************************************************
+## Notice d'Utilisation
 
-Fonctionnement:
+Pour utiliser **WATIMIS** :
+1. Ouvrez l'application.
+2. Cliquez sur **"Sélectionner une photo"** et choisissez une image prise au préalable.
+3. Cliquez sur **"Continuer"**.
 
-Il faut savoir que la liberté de la méthode utilisée était restreinte. Je devais me baser sur des techniques enseignées en cours
-et utilisées en TD (voir le dossier dédié). WATIMIS se base donc sur l'ORB (Oriented FAST and Rotated BRIEF) :
-L'image est téléchargée, convertie en niveaux de gris, puis l'ORB détecte les principales variations d'intensités et les déclare 
-comme des points clés dont il va alors garder les meilleurs. Enfin, après avoir effectué ceci sur les deux images comparées, il va 
-rechercher les points clés similaires dans chaque image et réaliser des "matches" entre eux. Enfin, il comptera le nombre de "bons matches" 
-qui permettront d'établir quelle image en a le plus et ainsi conclure que ce logo correspond à celui sur l'image donnée par l'utilisateur.
+### Résultat :
+- En grand, vous verrez le club correspondant à votre image, avec les correspondances tracées.
+- À droite, une liste des clubs potentiellement identifiés est affichée (en cas d'erreurs, les clubs avec des fortes correspondances sont suggérés).
 
-Fiabilité:
+---
 
-Cette méthode a été améliorée par mes soins avec l'usage de la fonction FLANN afin de fiabiliser l'algorithme. Cependant, malgré tout, 
-cette technique demeure peu fiable. Dans le dossier contenant le rendu de cours, il y a un fichier `.py` permettant d'effectuer un test
-massif du programme avec 5 logos de référence et un jeu de données de 50 images. Après l'avoir lancé, j'ai obtenu 86% de résultats positifs
-(62% des cas où le résultat principal était le bon, 24% où le résultat était suggéré dans les possibilités). On peut ainsi voir quelles
-images n'ont pas très bien fonctionné :
-1. Les images prises de loin où le logo du club n'est pas très bien tracé.
-2. Le logo de l'équipe de France semble être le plus difficile à détecter.
-"""
+## Fonctionnement Technique
 
+La méthode utilisée est basée sur les techniques enseignées en cours, en particulier **ORB (Oriented FAST and Rotated BRIEF)** :
+1. L'image est téléchargée et convertie en niveaux de gris.
+2. **ORB** détecte les principales variations d'intensité comme points clés et sélectionne les meilleurs.
+3. Après avoir détecté les points clés des deux images comparées, le programme recherche les correspondances entre ces points.
+4. Le programme compte les "bons matches" pour identifier l'image la plus proche et en conclure que le logo correspond à celui sur l'image donnée par l'utilisateur.
+
+---
+
+## Fiabilité
+
+Cette méthode a été améliorée avec l'usage de la fonction **FLANN** pour fiabiliser l'algorithme.  
+Malgré tout, elle reste limitée. Voici un test réalisé avec :
+- **5 logos de référence**  
+- **50 images à tester**
+
+### Résultats :
+- **86% de résultats positifs** : 
+  - 62% des cas où le résultat principal était correct.
+  - 24% des cas où le résultat correct était suggéré parmi les possibilités.
+
+### Limites :
+1. Les images prises de loin ou dont le logo est mal défini.
+2. Le logo de l'équipe de France est le plus difficile à détecter.
+
+---
+
+## Structure du Projet
+
+- **`main.py`** : Le point d'entrée principal.
+- **Images de référence** : Base de données pour la comparaison.
+- **Fichier de test** : Script permettant de tester la fiabilité avec un jeu de données.
+
+---
 
